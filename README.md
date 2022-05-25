@@ -1,25 +1,44 @@
-## About
+<h2 align='center'>Machine Learning Algorithms on Ethereum Data</h2>
 
-This repository is to implement machine learning algorithms and their variational forms on Ethereum data obtained from yahoos finance API.
+## Task Description
 
-## Getting Started
+This repository is to implement machine learning algorithms and their variational forms on Ethereum data obtained from
+yahoos finance API.
 
-### Dependencies
+## About the Data
+
+The data is obtained from yahoos finance API and is stored in a CSV file.
+
+Attributes:
+- Date: Corresponding date of the stock price
+- Year: Corresponding year of the stock price
+- Month: Corresponding month of the stock price
+- Day: Corresponding day of the stock price
+- Weekday: Corresponding weekday of the stock price
+- Open: Opening price of the stock price
+- High: Highest price of the stock price
+- Low: Lowest price of the stock price
+- Close: Closing price of the stock price
+- Volume: Stock volume 
+- Adj Close: Adjusted closing price of the stock price
+- Return: Return of the stock 
+- Short_MA: Short moving average of the stock price
+- Long_MA: Long moving average of the stock price
+
+## Dependencies
 
 List of all the libraries you need to run the code.
 
   ```sh
-  python 3.x
-  numpy
-  pandas
-  scipy
-  scikit-learn
-  matplotlib
-  seaborn
+$ pip install -r requirements.txt
+````
+
+or
+
+  ```sh
+$ pip install .
   ```
 
-
-<!-- USAGE EXAMPLES -->
 ## Usage
 
   ```sh
@@ -35,30 +54,28 @@ List of all the libraries you need to run the code.
 ## Roadmap
 
 - [x] [KNN](https://github.com/vineetver/Machine-Learning/tree/main/Knn_and_variations)
-  - [x] Domain Transformation
-  - [x] Centroid
-  - [ ] Predicted Neighbors 
-  - [ ] Original Points
-  - [x] Minkowski 
+    - [x] Domain Transformation
+    - [x] Centroid
+    - [ ] Predicted Neighbors
+    - [ ] Original Points
+    - [x] Minkowski
 - [x] Naive Bayes
-  - [ ] Gaussian
-  - [ ] Student T
+    - [ ] Gaussian
+    - [ ] Student T
 - [ ] Logsitic Regression
 - [ ] Decision Tree
 - [ ] Random Forest
 - [ ] LDA
 - [ ] QDA
 - [ ] Ada Boost
-  - [ ] SVM
-  - [ ] Logistic Regression
-  - [ ] Naive Bayesian
+    - [ ] SVM
+    - [ ] Logistic Regression
+    - [ ] Naive Bayesian
 - [ ] KMeans
-
 
 ## License
 
 Distributed under the MIT License. See `LICENSE.md` for more information.
-
 
 ## Contact
 
