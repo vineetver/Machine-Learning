@@ -4,7 +4,7 @@ This repository is to implement machine learning algorithms and their variationa
 
 ## Getting Started
 
-### Dependancies
+### Dependencies
 
 List of all the libraries you need to run the code.
 
