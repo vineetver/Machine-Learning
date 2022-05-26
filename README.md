@@ -27,8 +27,6 @@ Attributes:
 
 ## Dependencies
 
-List of all the libraries you need to run the code.
-
   ```sh
 $ pip install -r requirements.txt
 ````
