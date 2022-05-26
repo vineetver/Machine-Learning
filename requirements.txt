@@ -2,3 +2,6 @@ pandas~=1.4.2
 numpy~=1.22.3
 setuptools~=61.2.0
 yfinance~=0.1.70
+scikit-learn~=1.0.2
+matplotlib~=3.5.1
+seaborn~=0.10.1
