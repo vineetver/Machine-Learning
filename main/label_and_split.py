@@ -1,7 +1,7 @@
 """
-This is the main function to label the dataset
+This is the main function to label the dataset and split the dataset into train and test.
 """
-from src.dataset.create_dataset import label_data
+from src.dataset.create_dataset import label_data, test_train_split
 import pandas as pd
 
 
@@ -19,6 +19,9 @@ def main():
 
     # Save the dataset
     df.to_csv('../data/ETH-USD_weekly_return_volatility_detailed_labeled.csv', index=False)
+
+    # Split the dataset into train and test
+    test_train_split(df)
 
     return None
 

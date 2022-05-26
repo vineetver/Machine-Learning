@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import yfinance as yf
+import numpy as np
 
 
 def download_data(ticker: str = 'ETH-USD', start_date: str = '2016-01-01', end_date: str = '2022-05-25') -> pd.DataFrame:
@@ -62,6 +63,8 @@ def label_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     This function labels the dataframe for model training.
     For example, if the mean return is less than 0 then the label is 0
+    Labels based on mean_return of the week. This is because the mean_return is the average return of the week and I want to trade on the
+    weeks that are green.
     :param df: The detailed weekly return volatility dataframe
     :return: the labeled dataframe
     """
@@ -72,7 +75,7 @@ def label_data(df: pd.DataFrame) -> pd.DataFrame:
 def test_train_split(df: pd.DataFrame) -> None:
     """
     This function splits the dataframe into a training and testing dataframe and saves the train and test to csv. Data from 2018 and 2019 as the training set, and the data from
-    2020 and 2021 as the testing set.
+    2020 and 2021 as the testing set. The columns used are: 'Year', 'Week_Number', 'Return', 'label', 'Adj Close'.
     :param df: the dataframe to split
     :return: None
     """
@@ -88,7 +91,7 @@ def test_train_split(df: pd.DataFrame) -> None:
     df_train_gp.drop(['std_price'], axis=1, inplace=True)
     df_train_gp.fillna(0, inplace=True)
 
-    df_train_gp.to_csv('./data/train.csv', index=False)
+    df_train_gp.to_csv('../data/train.csv', index=False)
 
     df_test_gp = df_test.groupby(['Year', 'Week_Number', 'label'])[['Return', 'Adj Close']].agg([np.mean, np.std])
     df_test_gp.reset_index(['Year', 'Week_Number', 'label'], inplace=True)
@@ -96,4 +99,4 @@ def test_train_split(df: pd.DataFrame) -> None:
     df_test_gp.drop(['std_price'], axis=1, inplace=True)
     df_test_gp.fillna(0, inplace=True)
 
-    df_test_gp.to_csv('./data/test.csv', index=False)
+    df_test_gp.to_csv('../data/test.csv', index=False)
