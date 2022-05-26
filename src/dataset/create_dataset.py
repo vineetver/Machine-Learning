@@ -3,7 +3,7 @@ import pandas as pd
 import yfinance as yf
 
 
-def download_data(ticker, start_date, end_date):
+def download_data(ticker: str = 'ETH-USD', start_date: str = '2016-01-01', end_date: str = '2022-05-25') -> pd.DataFrame:
     """
     This function downloads the historical data for the given ticker/stock
     :param ticker: the ticker/stock symbol
@@ -15,7 +15,7 @@ def download_data(ticker, start_date, end_date):
     return df
 
 
-def transform_data(df, s_window, l_window):
+def transform_data(df: pd.DataFrame, s_window: int = 14, l_window: int = 50) -> pd.DataFrame:
     """
     This function cleans the dataframe and adds some new features
     :param df: the dataframe to clean
@@ -46,7 +46,7 @@ def transform_data(df, s_window, l_window):
     return df[col_list]
 
 
-def write_data(df, ticker):
+def write_data(df: pd.DataFrame, ticker: str) -> None:
     """
     This function writes the cleaned dataframe to a csv file
     :param ticker: the ticker/stock symbol
@@ -58,7 +58,7 @@ def write_data(df, ticker):
     print(f'wrote {len(df)} lines to file: {path}')
 
 
-def label_data(df):
+def label_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     This function labels the dataframe for model training.
     For example, if the mean return is less than 0 then the label is 0
@@ -67,3 +67,33 @@ def label_data(df):
     """
     df['label'] = df['mean_return'].apply(lambda x: 1 if x > -0.1 else 0)
     return df
+
+
+def test_train_split(df: pd.DataFrame) -> None:
+    """
+    This function splits the dataframe into a training and testing dataframe and saves the train and test to csv. Data from 2018 and 2019 as the training set, and the data from
+    2020 and 2021 as the testing set.
+    :param df: the dataframe to split
+    :return: None
+    """
+    df_train = df[(df['Year'] == 2018) | (df['Year'] == 2019)]
+    df_test = df[(df['Year'] == 2020) | (df['Year'] == 2021)]
+
+    df_train = df_train[['Year', 'Week_Number', 'Return', 'label', 'Adj Close']]
+    df_test = df_test[['Year', 'Week_Number', 'Return', 'label', 'Adj Close']]
+
+    df_train_gp = df_train.groupby(['Year', 'Week_Number', 'label'])[['Return', 'Adj Close']].agg([np.mean, np.std])
+    df_train_gp.reset_index(['Year', 'Week_Number', 'label'], inplace=True)
+    df_train_gp.columns = ['Year', 'Week_Number', 'label', 'mean_return', 'volatility', 'mean_adj_close', 'std_price']
+    df_train_gp.drop(['std_price'], axis=1, inplace=True)
+    df_train_gp.fillna(0, inplace=True)
+
+    df_train_gp.to_csv('./data/train.csv', index=False)
+
+    df_test_gp = df_test.groupby(['Year', 'Week_Number', 'label'])[['Return', 'Adj Close']].agg([np.mean, np.std])
+    df_test_gp.reset_index(['Year', 'Week_Number', 'label'], inplace=True)
+    df_test_gp.columns = ['Year', 'Week_Number', 'label', 'mean_return', 'volatility', 'mean_adj_close', 'std_price']
+    df_test_gp.drop(['std_price'], axis=1, inplace=True)
+    df_test_gp.fillna(0, inplace=True)
+
+    df_test_gp.to_csv('./data/test.csv', index=False)
