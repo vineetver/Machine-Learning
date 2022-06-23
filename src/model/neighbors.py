@@ -1,13 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import List, Any
-
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import mean_squared_error
-from sklearn.model_selection import StratifiedShuffleSplit, StratifiedKFold
-from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 
 class Model(ABC):
@@ -62,7 +58,7 @@ class Model(ABC):
 
 
 class KNN(Model, ABC):
-    """K-Nearest Neighbors model."""
+    """K-Nearest Neighbors model with Euclidean distance."""
 
     def __init__(self, params: dict = None):
         super().__init__(params if params is not None else {})
@@ -77,8 +73,8 @@ class KNN(Model, ABC):
             X: The features.
             Y: The labels.
         """
-        df_train = pd.read_csv('data/train.csv')
-        df_test = pd.read_csv('data/test.csv')
+        df_train = pd.read_csv('../data/train.csv')
+        df_test = pd.read_csv('../data/test.csv')
 
         x_train = df_train[['mean_return', 'volatility']].values
         y_train = df_train['label'].values
