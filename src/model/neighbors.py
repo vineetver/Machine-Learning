@@ -101,7 +101,7 @@ class KNN(Model, ABC):
         print(f'Mean Squared Error: {mean_squared_error(y_test, y_pred)}')
         return mean_squared_error(y_test, y_pred)
 
-    def plot_best_k(self, x_train, y_train, x_test, y_test):
+    def plot_best_k(self, x_train, y_train, x_test, y_test) -> None:
         """Plot the best k value."""
         error: list = []
         for k in range(3, 21, 2):
