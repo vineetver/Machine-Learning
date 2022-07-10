@@ -31,11 +31,11 @@ def main():
     # Train the model
     clf.fit(x_train, y_train)
 
-    # Cross validate the model
-    clf.cross_validate(x_train, y_train)
-
     # Predict the labels for the test set
     y_pred = clf.predict(x_test)
+
+    # Accuracy
+    clf.evaluate(x_test, y_test)
 
     # Evaluate trading strategies
     my_trading_strategy(df_test, labels=y_pred, eval='test')
