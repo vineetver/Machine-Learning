@@ -5,11 +5,20 @@
 This repository is to implement machine learning algorithms and their variational forms on Ethereum data obtained from
 yahoos finance API.
 
+| Algorithm                       |   MSE |
+|---------------------------------|------:|
+| K-Nearest Neighbors (Minkowski) | 0.037 |
+| K-Nearest Neighbors (Manhattan) |     - |
+| K-Nearest Neighbors (Euclidean) |     - |
+| Nearest Centroid                | 0.066 |
+| Domain Transformation          |     - |
+
 ## About the Data
 
 The data is obtained from yahoos finance API and is stored in a CSV file.
 
 Attributes:
+
 - Date: Corresponding date of the stock price
 - Year: Corresponding year of the stock price
 - Month: Corresponding month of the stock price
@@ -19,9 +28,9 @@ Attributes:
 - High: Highest price of the stock price
 - Low: Lowest price of the stock price
 - Close: Closing price of the stock price
-- Volume: Stock volume 
+- Volume: Stock volume
 - Adj Close: Adjusted closing price of the stock price
-- Return: Return of the stock 
+- Return: Return of the stock
 - Short_MA: Short moving average of the stock price
 - Long_MA: Long moving average of the stock price
 
