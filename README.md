@@ -54,8 +54,8 @@ $ pip install .
 - [x] [KNN](https://github.com/vineetver/Machine-Learning/tree/main/Knn_and_variations)
     - [x] Domain Transformation
     - [x] Centroid
-    - [ ] Predicted Neighbors
-    - [ ] Original Points
+    - [x] Predicted Neighbors
+    - [x] Original Points
     - [x] Minkowski
 - [x] Naive Bayes
     - [ ] Gaussian
