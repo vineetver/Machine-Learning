@@ -12,8 +12,8 @@ def main():
     """
     Metric:
         1. Minkowski -> lambda a, b: minkowski(a, b, p)
-        2. Euclidean
-        3. Manhattan
+        2. Euclidean -> p = 2
+        3. Manhattan -> p = 1
     """
     p = 1.5
 
