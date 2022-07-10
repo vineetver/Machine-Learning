@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List, Any
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import NearestCentroid
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 
@@ -115,3 +116,47 @@ class KNN(Model, ABC):
         plt.xlabel('Number of neighbors: k')
         plt.ylabel('Mean squared error')
         plt.show()
+
+
+class Centroid(Model, ABC):
+    """Nearest Centroid model"""
+
+    def __init__(self, params: dict = None):
+        super().__init__(params if params is not None else {})
+
+    def preprocess(self) -> tuple[Any, Any, Any, Any]:
+        """This function reads the test and train data and returns x_train, y_train, x_test, y_test.
+
+        Args:
+            df: The dataframe containing the features and labels.
+
+        Returns:
+            X: The features.
+            Y: The labels.
+        """
+        df_train = pd.read_csv('../data/train.csv')
+        df_test = pd.read_csv('../data/test.csv')
+
+        x_train = df_train[['mean_return', 'volatility']].values
+        y_train = df_train['label'].values
+
+        x_test = df_test[['mean_return', 'volatility']].values
+        y_test = df_test['label'].values
+
+        return x_train, y_train, x_test, y_test
+
+    def fit(self, x_train, y_train) -> NearestCentroid:
+        """Fit the model."""
+        self.model = NearestCentroid(**self.params)
+        self.model.fit(x_train, y_train)
+        return self.model
+
+    def predict(self, x_test) -> List[int]:
+        """Predict the labels for the given data."""
+        return self.model.predict(x_test)
+
+    def evaluate(self, x_test, y_test) -> float:
+        """Evaluate the model."""
+        y_pred = self.predict(x_test)
+        print(f'Mean Squared Error: {mean_squared_error(y_test, y_pred)}')
+        return mean_squared_error(y_test, y_pred)
